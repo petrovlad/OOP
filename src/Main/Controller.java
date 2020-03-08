@@ -15,10 +15,16 @@ public class Controller {
     private ComboBox<String> cbxChooseObj;
 
     @FXML
-    private TextField txtX;
+    private TextField txtX1;
 
     @FXML
-    private TextField txtY;
+    private TextField txtY1;
+
+    @FXML
+    private TextField txtX2;
+
+    @FXML
+    private TextField txtY2;
 
     @FXML
     private Button btnAdd;
@@ -37,7 +43,6 @@ public class Controller {
 
     @FXML
     private ColorPicker pkrFillColor;
-
 
     @FXML
     private ColorPicker pkrLineColor;
@@ -66,8 +71,6 @@ public class Controller {
         figureList.Add(new Rectangle(50.0, 50.0, 80.0, 90.0, 5, Color.DARKBLUE, Color.BLACK));
         figureList.Add(new Oval(100.0, 100.0, 140.0, 130.0, 10, Color.RED, Color.VIOLET));
         figureList.Add(new Triangle(170.0, 170.0, 200.0, 250.0, 10, Color.BLUEVIOLET, Color.BLACK));
-
-
 
     }
 
