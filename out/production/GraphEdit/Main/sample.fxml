@@ -17,20 +17,20 @@
           <AnchorPane maxHeight="606.0" maxWidth="165.0" minHeight="400.0" minWidth="146.0" prefHeight="606.0" prefWidth="165.0">
                <children>
                   <ComboBox fx:id="cbxChooseObj" layoutX="15.0" layoutY="31.0" onAction="#change" prefHeight="25.0" prefWidth="104.0" />
-                  <TextField fx:id="txtX" layoutX="14.0" layoutY="85.0" prefHeight="25.0" prefWidth="104.0" />
-                  <TextField fx:id="txtY" layoutX="14.0" layoutY="143.0" prefHeight="25.0" prefWidth="104.0" />
                   <Label layoutX="14.0" layoutY="14.0" text="Choose obj:" />
-                  <Label layoutX="15.0" layoutY="68.0" text="x:" />
-                  <Label layoutX="15.0" layoutY="126.0" text="y:" />
-                  <Button fx:id="btnAdd" layoutX="16.0" layoutY="415.0" mnemonicParsing="false" onAction="#addObj" text="Add obj" />
-                  <Button fx:id="btnDraw" layoutX="16.0" layoutY="452.0" mnemonicParsing="false" onAction="#drawObjs" text="Redraw" />
-                  <TextField fx:id="txtProperty" layoutX="14.0" layoutY="202.0" prefHeight="25.0" prefWidth="104.0" />
+                  <Button fx:id="btnAdd" layoutX="16.0" layoutY="502.0" mnemonicParsing="false" onAction="#addObj" text="Add obj" />
+                  <Button fx:id="btnDraw" layoutX="16.0" layoutY="539.0" mnemonicParsing="false" onAction="#drawObjs" text="Redraw" />
                   <Label fx:id="lblProperty" layoutX="15.0" layoutY="185.0" />
-                  <ColorPicker fx:id="pkrFillColor" layoutX="14.0" layoutY="303.0" prefHeight="25.0" prefWidth="104.0" />
-                  <Spinner fx:id="spnnrSize" editable="true" layoutX="14.0" layoutY="241.0" prefHeight="25.0" prefWidth="104.0" />
-                  <Label layoutX="14.0" layoutY="286.0" text="Fill color" />
-                  <ColorPicker fx:id="pkrLineColor" layoutX="15.0" layoutY="367.0" prefHeight="25.0" prefWidth="104.0" />
-                  <Label layoutX="14.0" layoutY="350.0" text="Line color" />
+                  <ColorPicker fx:id="pkrFillColor" layoutX="24.0" layoutY="389.0" prefHeight="25.0" prefWidth="104.0" />
+                  <Spinner fx:id="spnnrSize" editable="true" layoutX="24.0" layoutY="327.0" prefHeight="25.0" prefWidth="104.0" />
+                  <Label layoutX="24.0" layoutY="372.0" text="Fill color" />
+                  <ColorPicker fx:id="pkrLineColor" layoutX="25.0" layoutY="453.0" prefHeight="25.0" prefWidth="104.0" />
+                  <Label layoutX="24.0" layoutY="436.0" text="Line color" />
+                  <TextField fx:id="txtX2" layoutX="23.0" layoutY="211.0" prefHeight="25.0" prefWidth="104.0" />
+                  <TextField fx:id="txtY2" layoutX="23.0" layoutY="269.0" prefHeight="25.0" prefWidth="104.0" />
+                  <Label layoutX="24.0" layoutY="194.0" text="x2:" />
+                  <Label layoutX="24.0" layoutY="252.0" text="y2:" />
+                  <Label layoutX="25.0" layoutY="310.0" text="Line size" />
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="602.0" maxWidth="643.0" minHeight="400.0" minWidth="463.0" prefHeight="602.0" prefWidth="643.0">
@@ -40,5 +40,9 @@
             </AnchorPane>
         </items>
       </SplitPane>
+      <TextField fx:id="txtX1" layoutX="24.0" layoutY="95.0" prefHeight="25.0" prefWidth="104.0" />
+      <TextField fx:id="txtY1" layoutX="24.0" layoutY="153.0" prefHeight="25.0" prefWidth="104.0" />
+      <Label layoutX="25.0" layoutY="78.0" text="x1:" />
+      <Label layoutX="25.0" layoutY="136.0" text="y1:" />
    </children>
 </AnchorPane>

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Changes in gui">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphEdit/Figures/FigureList.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphEdit/Figures/FigureList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphEdit/Main/Controller.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphEdit/Main/Controller.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/GraphEdit/Main/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/GraphEdit/Main/sample.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main/sample.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main/sample.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,6 +189,14 @@
       <updated>1359379246138</updated>
       <workItem from="1359379250712" duration="1302000" />
     </task>
+    <task id="LOCAL-00001" summary="Changes in gui">
+      <created>1583695119136</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1583695119136</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -195,6 +205,8 @@
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <MESSAGE value="Changes in gui" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes in gui" />
   </component>
   <component name="WindowStateProjectService">
     <state x="605" y="140" key="#com.intellij.ide.util.MemberChooser" timestamp="1583077526622">
@@ -205,26 +217,26 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state x="596" y="316" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1600.860@0.0.1600.860" timestamp="1583241192152" />
-    <state x="441" y="25" key="CommitChangelistDialog2" timestamp="1583695048586">
+    <state x="750" y="41" key="CommitChangelistDialog2" timestamp="1583847449241">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="441" y="25" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1583695048586" />
-    <state width="1557" height="128" key="GridCell.Tab.0.bottom" timestamp="1583695086025">
+    <state x="750" y="41" key="CommitChangelistDialog2/0.0.1600.860@0.0.1600.860" timestamp="1583847449241" />
+    <state width="1557" height="128" key="GridCell.Tab.0.bottom" timestamp="1583839012710">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="128" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583695086025" />
-    <state width="1557" height="128" key="GridCell.Tab.0.center" timestamp="1583695086025">
+    <state width="1557" height="128" key="GridCell.Tab.0.bottom/0.0.1600.860@0.0.1600.860" timestamp="1583839012710" />
+    <state width="1557" height="128" key="GridCell.Tab.0.center" timestamp="1583839012710">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="128" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583695086025" />
-    <state width="1557" height="128" key="GridCell.Tab.0.left" timestamp="1583695086025">
+    <state width="1557" height="128" key="GridCell.Tab.0.center/0.0.1600.860@0.0.1600.860" timestamp="1583839012710" />
+    <state width="1557" height="128" key="GridCell.Tab.0.left" timestamp="1583839012710">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="128" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583695086025" />
-    <state width="1557" height="128" key="GridCell.Tab.0.right" timestamp="1583695086025">
+    <state width="1557" height="128" key="GridCell.Tab.0.left/0.0.1600.860@0.0.1600.860" timestamp="1583839012710" />
+    <state width="1557" height="128" key="GridCell.Tab.0.right" timestamp="1583839012710">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state width="1557" height="128" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583695086025" />
+    <state width="1557" height="128" key="GridCell.Tab.0.right/0.0.1600.860@0.0.1600.860" timestamp="1583839012710" />
     <state width="1557" height="276" key="GridCell.Tab.1.bottom" timestamp="1583563674845">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
@@ -241,10 +253,14 @@
       <screen x="0" y="0" width="1600" height="860" />
     </state>
     <state width="1557" height="276" key="GridCell.Tab.1.right/0.0.1600.860@0.0.1600.860" timestamp="1583563674845" />
-    <state x="496" y="255" key="com.intellij.ide.util.TipDialog" timestamp="1583693003566">
+    <state x="392" y="164" key="Vcs.Push.Dialog.v2" timestamp="1583695123405">
       <screen x="0" y="0" width="1600" height="860" />
     </state>
-    <state x="496" y="255" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1583693003566" />
+    <state x="392" y="164" key="Vcs.Push.Dialog.v2/0.0.1600.860@0.0.1600.860" timestamp="1583695123405" />
+    <state x="496" y="255" key="com.intellij.ide.util.TipDialog" timestamp="1583847292062">
+      <screen x="0" y="0" width="1600" height="860" />
+    </state>
+    <state x="496" y="255" key="com.intellij.ide.util.TipDialog/0.0.1600.860@0.0.1600.860" timestamp="1583847292062" />
     <state x="463" y="180" width="672" height="678" key="search.everywhere.popup" timestamp="1583687270479">
       <screen x="0" y="0" width="1600" height="860" />
     </state>

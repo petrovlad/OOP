@@ -52,6 +52,7 @@ public class Controller {
 
     private String[] objNameList = {"Line", "Oval", "Rectangle", "Triangle"};
 
+
     private FigureList figureList = new FigureList();
 
     @FXML
@@ -81,12 +82,11 @@ public class Controller {
 
     @FXML
     void addObj(ActionEvent event) {
-
-
     }
     @FXML
     void drawObjs(ActionEvent event) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         figureList.Draw(gc);
+        
     }
 }
