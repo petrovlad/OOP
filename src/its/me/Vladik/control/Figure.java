@@ -1,4 +1,4 @@
-package its.me.Vladik;
+package its.me.Vladik.control;
 
 import its.me.Vladik.figures.Point;
 import javafx.scene.canvas.GraphicsContext;

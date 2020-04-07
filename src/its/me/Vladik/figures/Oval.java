@@ -1,6 +1,6 @@
 package its.me.Vladik.figures;
 
-import its.me.Vladik.Figure;
+import its.me.Vladik.control.Figure;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 

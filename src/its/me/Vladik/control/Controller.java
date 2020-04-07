@@ -1,15 +1,10 @@
-package its.me.Vladik.main;
+package its.me.Vladik.control;
 
-import its.me.Vladik.Figure;
-import its.me.Vladik.FigureList;
-import its.me.Vladik.figures.*;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
 import java.io.IOException;
