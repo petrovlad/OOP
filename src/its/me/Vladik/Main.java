@@ -1,3 +1,5 @@
+package its.me.Vladik;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         FXMLLoader loader = new FXMLLoader();
-        String fxmlPath = "src/its/me/Vladik/main/sample1.fxml";
+        String fxmlPath = "src/its/me/Vladik/control/sample1.fxml";
         FileInputStream fxmlStream = new FileInputStream(fxmlPath);
 
         Parent root = loader.load(fxmlStream);
