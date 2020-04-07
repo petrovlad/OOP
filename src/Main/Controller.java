@@ -7,36 +7,15 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.effect.Reflection;
 import javafx.scene.paint.Color;
+
+import java.lang.reflect.*;
 
 public class Controller {
 
     @FXML
     private ComboBox<String> cbxChooseObj;
-
-    @FXML
-    private TextField txtX1;
-
-    @FXML
-    private TextField txtY1;
-
-    @FXML
-    private TextField txtX2;
-
-    @FXML
-    private TextField txtY2;
-
-    @FXML
-    private Button btnAdd;
-
-    @FXML
-    private Button btnDraw;
-
-    @FXML
-    private TextField txtProperty;
-
-    @FXML
-    private Label lblProperty;
 
     @FXML
     private Canvas canvas;
@@ -50,7 +29,7 @@ public class Controller {
     @FXML
     private Spinner<Integer> spnnrSize;
 
-    private String[] objNameList = {"Line", "Oval", "Rectangle", "Triangle"};
+    private String[] objNameList = {"Line", "Oval", "Rectangle", "Triangle", "Polygon"};
 
 
     private FigureList figureList = new FigureList();
@@ -67,12 +46,6 @@ public class Controller {
 
         spnnrSize.setValueFactory(valueFactory);
 
-
-        figureList.Add(new Line(10.0, 10.0, 30.0, 50.0, 5, Color.BLUE));
-        figureList.Add(new Rectangle(50.0, 50.0, 80.0, 90.0, 5, Color.DARKBLUE, Color.BLACK));
-        figureList.Add(new Oval(100.0, 100.0, 140.0, 130.0, 10, Color.RED, Color.VIOLET));
-        figureList.Add(new Triangle(170.0, 170.0, 200.0, 250.0, 10, Color.BLUEVIOLET, Color.BLACK));
-
     }
 
     @FXML
@@ -82,11 +55,14 @@ public class Controller {
 
     @FXML
     void addObj(ActionEvent event) {
+
     }
+
     @FXML
     void drawObjs(ActionEvent event) {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         figureList.Draw(gc);
         
     }
+
 }

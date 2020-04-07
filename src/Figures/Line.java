@@ -5,6 +5,9 @@ import javafx.scene.paint.Color;
 
 public class Line extends Figure {
 
+    public Point startPoint, endPoint;
+    public Color fillColor;
+
     public Line(double sx, double sy, double ex, double ey, int linesize, Color lineclr) {
         startPoint.x = sx;
         startPoint.y = sy;

@@ -8,11 +8,11 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
+<AnchorPane maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="its.me.Vladik.main.Controller">
    <children>
       <SplitPane dividerPositions="0.22073578595317725" layoutX="62.0" layoutY="51.0" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxHeight="606.0" maxWidth="165.0" minHeight="400.0" minWidth="146.0" prefHeight="606.0" prefWidth="165.0">
+          <AnchorPane maxHeight="606.0" maxWidth="178.0" minHeight="400.0" minWidth="146.0" prefHeight="598.0" prefWidth="178.0">
                <children>
                   <ComboBox fx:id="cbxChooseObj" layoutX="15.0" layoutY="31.0" onAction="#change" prefHeight="25.0" prefWidth="132.0" />
                   <Label layoutX="14.0" layoutY="14.0" text="Choose obj:" />

@@ -5,6 +5,9 @@ import javafx.scene.paint.Color;
 
 public class Rectangle extends Figure {
 
+    public Point startPoint, endPoint;
+    public Color fillColor;
+
     public Rectangle(double sx, double sy, double ex, double ey, int linesize, Color fillclr, Color lineclr) {
         startPoint.x = sx;
         startPoint.y = sy;
