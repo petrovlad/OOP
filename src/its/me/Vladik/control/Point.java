@@ -1,4 +1,4 @@
-package its.me.Vladik.figures;
+package its.me.Vladik.control;
 
 public class Point {
     public double x;

@@ -1,6 +1,7 @@
 package its.me.Vladik.figures;
 
 import its.me.Vladik.control.Figure;
+import its.me.Vladik.control.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -66,4 +67,9 @@ public class Rectangle extends Figure {
         gc.fillRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.x));
 
     }
+
+    public static String getUsage() {
+        return "<rectangle stroke=\"COLOR\" stroke-width=\"COLOR\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+    }
+
 }

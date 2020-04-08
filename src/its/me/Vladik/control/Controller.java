@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -35,12 +36,14 @@ public class Controller {
     private ArrayList<String> names = new ArrayList<String>();
     private GraphicsContext gc;
     @FXML
-    void initialize() {
+    void initialize() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         // initialize form
         txtUsage.setEditable(false);
         gc = canvas.getGraphicsContext2D();
 
 
+        // this string contains all usages
+        String usage = new String("Usage:\n");
         // get classes from package "figures"
         try {
             classes = getClassesFromPackage("its/me/Vladik/figures");
@@ -54,9 +57,15 @@ public class Controller {
         for (Class clss : classes) {
             String buf = clss.getName();
             names.add(buf.substring(buf.lastIndexOf('.') + 1));
+
+            // add usage
+            Method method = clss.getMethod("getUsage", null);
+            usage = usage + ((String)method.invoke(null, null) + "\n");
+
         }
         // now we have 2 lists: 'classes'(include all possible figures) and 'names'(include names of all possible figures)
 
+        txtUsage.setText(usage);
     }
 
     @FXML

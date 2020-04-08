@@ -1,6 +1,5 @@
 package its.me.Vladik.control;
 
-import its.me.Vladik.figures.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -15,7 +14,7 @@ public abstract class Figure {
     // большинство определений в скрипте одинаковы для остальных
     // определить общие и в каждом конструкторе дописать уникальные?
 
-    public void Draw(GraphicsContext gc) { };
+    public void Draw(GraphicsContext gc) { }
 }
 
 

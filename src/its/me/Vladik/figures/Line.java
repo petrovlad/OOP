@@ -1,6 +1,7 @@
 package its.me.Vladik.figures;
 
 import its.me.Vladik.control.Figure;
+import its.me.Vladik.control.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -58,7 +59,7 @@ public class Line extends Figure {
         gc.strokeLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
     }
 
-    public String Usage() {
-        return "<line stroke=\"COLOR\" stroke-width=\"COLOR\" point1=\"XX YY\" point2=\"XX YY\">";
+    public static String getUsage() {
+        return "<line stroke=\"COLOR\" stroke-width=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
     }
 }

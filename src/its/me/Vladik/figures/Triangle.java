@@ -1,6 +1,7 @@
 package its.me.Vladik.figures;
 
 import its.me.Vladik.control.Figure;
+import its.me.Vladik.control.Point;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
@@ -78,6 +79,11 @@ public class Triangle extends Figure {
 
         gc.strokePolygon(x, y, 3);
         gc.fillPolygon(x, y, 3);
+    }
+
+
+    public static String getUsage() {
+        return "<triangle stroke=\"COLOR\" stroke-width=\"COLOR\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\" point3=\"X Y\">";
     }
 
 }
