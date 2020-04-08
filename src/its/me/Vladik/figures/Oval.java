@@ -68,7 +68,7 @@ public class Oval extends Figure {
     }
 
     public static String getUsage() {
-        return "<oval stroke=\"COLOR\" stroke-width=\"COLOR\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+        return "<oval stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
     }
 
 }

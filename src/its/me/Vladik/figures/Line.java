@@ -60,6 +60,6 @@ public class Line extends Figure {
     }
 
     public static String getUsage() {
-        return "<line stroke=\"COLOR\" stroke-width=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+        return "<line stroke=\"COLOR\" stroke-width=\"N\" point1=\"X Y\" point2=\"X Y\">";
     }
 }

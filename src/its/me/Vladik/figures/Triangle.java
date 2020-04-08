@@ -83,7 +83,7 @@ public class Triangle extends Figure {
 
 
     public static String getUsage() {
-        return "<triangle stroke=\"COLOR\" stroke-width=\"COLOR\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\" point3=\"X Y\">";
+        return "<triangle stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\" point3=\"X Y\">";
     }
 
 }

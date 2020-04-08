@@ -69,7 +69,7 @@ public class Rectangle extends Figure {
     }
 
     public static String getUsage() {
-        return "<rectangle stroke=\"COLOR\" stroke-width=\"COLOR\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+        return "<rectangle stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
     }
 
 }
