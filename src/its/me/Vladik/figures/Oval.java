@@ -63,8 +63,8 @@ public class Oval extends Figure {
         gc.setStroke(lineColor);
         gc.setLineWidth(lineSize);
 
-        gc.strokeOval(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.x));
-        gc.fillOval(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.x));
+        gc.strokeOval(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
+        gc.fillOval(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
     }
 
     public static String getUsage() {

@@ -63,8 +63,8 @@ public class Rectangle extends Figure {
         gc.setStroke(lineColor);
         gc.setLineWidth(lineSize);
 
-        gc.strokeRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.x));
-        gc.fillRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.x));
+        gc.strokeRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
+        gc.fillRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
 
     }
 
