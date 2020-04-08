@@ -57,4 +57,8 @@ public class Line extends Figure {
 
         gc.strokeLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
     }
+
+    public String Usage() {
+        return "<line stroke=\"COLOR\" stroke-width=\"COLOR\" point1=\"XX YY\" point2=\"XX YY\">";
+    }
 }
