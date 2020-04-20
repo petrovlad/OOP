@@ -5,23 +5,23 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class FigureList {
-    private ArrayList<Figure> Figures;
+    private ArrayList<Figure> figures;
 
     public FigureList() {
-        Figures = new ArrayList<Figure>();
+        figures = new ArrayList<>();
     }
-    public void Add(Figure figure) {
-        Figures.add(figure);
+    public void add(Figure figure) {
+        figures.add(figure);
     }
 
-    public void Draw(GraphicsContext gc) {
+    public void draw(GraphicsContext gc) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        for (Figure fig: Figures) {
+        for (Figure fig: figures) {
             fig.Draw(gc);
         }
     }
-    public void DeleteAll() {
-        Figures.clear();
+    public void deleteAll() {
+        figures.clear();
     }
 
 }

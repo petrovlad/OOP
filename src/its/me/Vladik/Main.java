@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 public class Main extends Application {
@@ -22,6 +23,7 @@ public class Main extends Application {
         primaryStage.setTitle("GraphEdit");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
+
     }
 
 
