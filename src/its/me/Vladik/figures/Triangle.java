@@ -21,6 +21,9 @@ public class Triangle extends Figure {
         lineSize = linesize;
         fillColor = fillclr;
         lineColor = lineclr;
+
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+        lineColorValue = ConvertColors.colorToInt(lineColor);
     }
     public Triangle(String script) {
         script = script.toLowerCase();
@@ -37,6 +40,7 @@ public class Triangle extends Figure {
             index = script.indexOf('"', script.indexOf("stroke"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
         }
 
         index = script.indexOf("stroke-width");
@@ -51,6 +55,7 @@ public class Triangle extends Figure {
             index = script.indexOf('"', script.indexOf("fill"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
         }
 
         int x, y;
@@ -83,7 +88,7 @@ public class Triangle extends Figure {
         fillColor = Color.WHITE;
 
 
-        int x, y;
+        double x, y;
         boolean p1 = false;
         boolean p2 = false;
         boolean p3 = false;
@@ -92,9 +97,15 @@ public class Triangle extends Figure {
                 case ("stroke"):
                     try {
                         lineColor = Color.valueOf(attribute.value);
+                        lineColorValue = ConvertColors.colorToInt(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue());
                     }
                     catch (Exception e) {
-                        messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        try {
+                            lineColorValue = Integer.parseInt(attribute.value, 16);
+                        }
+                        catch (Exception e1) {
+                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        }
                     }
                     break;
                 case ("stroke-width"):
@@ -108,16 +119,22 @@ public class Triangle extends Figure {
                 case ("fill"):
                     try {
                         fillColor = Color.valueOf(attribute.value);
+                        fillColorValue = ConvertColors.colorToInt(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue());
                     }
                     catch (Exception e) {
-                        messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        try {
+                            fillColorValue = Integer.parseInt(attribute.value, 16);
+                        }
+                        catch (Exception e1) {
+                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        }
                     }
                     break;
                 case ("point1"):
                     try {
                         p1 = true;
-                        x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                        y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                        x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                        y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                         point1 = new Point(x, y);
                     }
                     catch (Exception e) {
@@ -128,8 +145,8 @@ public class Triangle extends Figure {
                 case ("point2"):
                     try {
                         p2 = true;
-                        x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                        y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                        x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                        y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                         point2 = new Point(x, y);
                     }
                     catch (Exception e) {
@@ -140,8 +157,8 @@ public class Triangle extends Figure {
                 case ("point3"):
                     try {
                         p3 = true;
-                        x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                        y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                        x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                        y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                         point3 = new Point(x, y);
                     }
                     catch (Exception e) {
@@ -167,8 +184,8 @@ public class Triangle extends Figure {
 
     @Override
     public void Draw(GraphicsContext gc) {
-        gc.setLineWidth(lineSize);
-        gc.setFill(fillColor);
+        gc.setFill(ConvertColors.intToColor(fillColorValue));
+        gc.setStroke(ConvertColors.intToColor(lineColorValue));
         gc.setStroke(lineColor);
 
         double[] y = {point1.y, point2.y, point3.y};
@@ -183,4 +200,13 @@ public class Triangle extends Figure {
         return "<triangle stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\" point3=\"X Y\">";
     }
 
+    @Override
+    public String toString() {
+        return "<triangle stroke=\"" + ConvertColors.intToColor(lineColorValue).toString() +
+                "\" stroke-width=\"" + lineSize +
+                "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
+                "\" point1=\"" + point1.x + " " + point1.y +
+                "\" point2=\"" + point2.x + " " + point2.y +
+                "\" point3=\"" + point3.x + " " + point3.y + "\">";
+    }
 }

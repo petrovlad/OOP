@@ -1,6 +1,10 @@
 package its.me.Vladik.control;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     public double x;
     public double y;
 

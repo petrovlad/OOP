@@ -23,6 +23,7 @@ public class Polygon extends Figure {
             index = script.indexOf('"', script.indexOf("stroke"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
         }
 
         index = script.indexOf("stroke-width");
@@ -37,6 +38,7 @@ public class Polygon extends Figure {
             index = script.indexOf('"', script.indexOf("fill"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
         }
 
         index = script.indexOf('"', script.indexOf("num-of-points"));
@@ -60,7 +62,7 @@ public class Polygon extends Figure {
         fillColor = Color.WHITE;
         numOfPoints = 0;
 
-        int x, y;
+        double x, y;
         int i;
         // if numOfPoints have not been initialized, num = false
         boolean num = false;
@@ -88,23 +90,37 @@ public class Polygon extends Figure {
                     case ("stroke"):
                         try {
                             lineColor = Color.valueOf(attribute.value);
-                        } catch (Exception e) {
-                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                            lineColorValue = ConvertColors.colorToInt(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue());
+                        }
+                        catch (Exception e) {
+                            try {
+                                lineColorValue = Integer.parseInt(attribute.value, 16);
+                            }
+                            catch (Exception e1) {
+                                messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                            }
                         }
                         break;
                     case ("stroke-width"):
                         try {
                             lineSize = Integer.parseInt(attribute.value);
-                        } catch (Exception e) {
+                        }
+                        catch (Exception e) {
                             messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
                         }
                         break;
                     case ("fill"):
                         try {
                             fillColor = Color.valueOf(attribute.value);
+                            fillColorValue = ConvertColors.colorToInt(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue());
                         }
                         catch (Exception e) {
-                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                            try {
+                                fillColorValue = Integer.parseInt(attribute.value, 16);
+                            }
+                            catch (Exception e1) {
+                                messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                            }
                         }
                         break;
                     case ("num-of-points"):
@@ -113,8 +129,8 @@ public class Polygon extends Figure {
                         if ((attribute.name.startsWith("point")) && ((i = Integer.parseInt(attribute.name.substring(5))) != -1) && (i <= numOfPoints)) {
                             try {
                                 p[i - 1] = true;
-                                x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                                y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                                x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                                y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                                 points[i - 1] = new Point(x, y);
                             } catch (Exception e) {
                                 messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
@@ -142,8 +158,8 @@ public class Polygon extends Figure {
 
     @Override
     public void Draw(GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.setStroke(lineColor);
+        gc.setFill(ConvertColors.intToColor(fillColorValue));
+        gc.setStroke(ConvertColors.intToColor(lineColorValue));
         gc.setLineWidth(lineSize);
 
         double[] x = new double[numOfPoints];
@@ -159,6 +175,18 @@ public class Polygon extends Figure {
 
     public static String getUsage() {
         return "<polygon stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" num-of-points=\"N\" point1=\"X Y\" ... point_i=\"X Y\">";
+    }
+
+    @Override
+    public String toString() {
+        String buf = "<polygon stroke=\"" + ConvertColors.intToColor(lineColorValue).toString() +
+                    "\" stroke-width=\"" + lineSize +
+                    "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
+                    "\" num-of-points=\"" + numOfPoints + "\"";
+        for (int i = 0; i < numOfPoints; i++) {
+            buf += " point" + Integer.toString(i + 1) + "=\"" + points[i].x + " " + points[i].y + "\"";
+        }
+        return buf  + ">";
     }
 
 }

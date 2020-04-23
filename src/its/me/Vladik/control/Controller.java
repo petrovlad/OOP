@@ -46,7 +46,7 @@ public class Controller {
     private ArrayList<String> names = new ArrayList<String>();
     private GraphicsContext gc;
     @FXML
-    void initialize() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    void initialize() {
         // initialize form
         txtUsage.setEditable(false);
         gc = canvas.getGraphicsContext2D();
@@ -57,22 +57,23 @@ public class Controller {
         // get classes from package "figures"
         try {
             classes = getClassesFromPackage("its/me/Vladik/figures");
+            // get names of classes
+            for (Class clss : classes) {
+                String buf = clss.getName();
+                names.add(buf.substring(buf.lastIndexOf('.') + 1));
+
+                // add usage
+                Method method = clss.getMethod("getUsage", null);
+                usage = usage + ((String)method.invoke(null, null) + "\n");
+
+            }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
             alert.setHeaderText("Loading classes failed");
             alert.setContentText("Error occured while load classes from file!");
         }
-        // get names of classes
-        for (Class clss : classes) {
-            String buf = clss.getName();
-            names.add(buf.substring(buf.lastIndexOf('.') + 1));
 
-            // add usage
-            Method method = clss.getMethod("getUsage", null);
-            usage = usage + ((String)method.invoke(null, null) + "\n");
-
-        }
         // now we have 2 lists: 'classes'(include all possible figures) and 'names'(include names of all possible figures)
 
         txtUsage.setText(usage);
@@ -80,7 +81,7 @@ public class Controller {
 
     @FXML
     // clear current figureList, get new figureList from the input field and redraw
-    void drawObjs(ActionEvent event) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    void drawObjs(ActionEvent event) {
         figureList.deleteAll();
         // warnings || errors
         MessageList messages = new MessageList();
@@ -106,8 +107,7 @@ public class Controller {
                     } catch (Exception e) {
                         Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Warning");
-                        alert.setHeaderText("Loading classes failed");
-                        //alert.setContentText("Error occured while load classes from file!");
+                        alert.setHeaderText("Creating object failed");
                         alert.setContentText("Oops, you've found bag. Please, report me about this. Thank you :)");
                         alert.show();
                     }
@@ -141,17 +141,22 @@ public class Controller {
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showSaveDialog(menuBar.getScene().getWindow());
 
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(txtInput.getText());
-            fileWriter.close();
-        }
-        catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Saving failed");
-            alert.setContentText("Error occurred while save figures to file!");
-            alert.show();
+        if (file != null) {
+            try {
+//            FileWriter fileWriter = new FileWriter(file);
+//            fileWriter.write(txtInput.getText());
+//            fileWriter.close();
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+                objectOutputStream.writeObject(figureList.figures);
+                objectOutputStream.close();
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Saving failed");
+                alert.setContentText("Error occurred while save figures to file!");
+                alert.show();
+            }
         }
     }
 
@@ -160,23 +165,32 @@ public class Controller {
         final FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(menuBar.getScene().getWindow());
 
-        try {
-            FileReader fileReader = new FileReader(file);
-            char[] buf = new char[256];
-            int c;
-            while ((c = fileReader.read(buf)) > -1) {
-                if (c < 256)
-                    buf = Arrays.copyOf(buf, c);
+        if (file != null) {
+            try {
+//            FileReader fileReader = new FileReader(file);
+//            char[] buf = new char[256];
+//            int c;
+//            while ((c = fileReader.read(buf)) > -1) {
+//                if (c < 256)
+//                    buf = Arrays.copyOf(buf, c);
+//
+//                txtInput.appendText(String.valueOf(buf));
+//            }
 
-                txtInput.appendText(String.valueOf(buf));
+                FileInputStream fileInputStream = new FileInputStream(file);
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                figureList.deleteAll();
+                figureList.figures = (ArrayList<Figure>) objectInputStream.readObject();
+                objectInputStream.close();
+                txtInput.setText(figureList.toString());
+                figureList.draw(gc);
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText("Opening failed");
+                alert.setContentText("Error occurred while open figures from file!");
+                alert.show();
             }
-        }
-        catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Saving failed");
-            alert.setContentText("Error occurred while save figures to file!");
-            alert.show();
         }
     }
 

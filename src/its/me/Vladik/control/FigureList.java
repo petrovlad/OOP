@@ -5,7 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class FigureList {
-    private ArrayList<Figure> figures;
+    private static final long serialVersionUID = 1L;
+
+    public ArrayList<Figure> figures;
 
     public FigureList() {
         figures = new ArrayList<>();
@@ -24,4 +26,12 @@ public class FigureList {
         figures.clear();
     }
 
+    @Override
+    public String toString() {
+        String buf = new String();
+        for (Figure fig : figures) {
+            buf += fig.toString() + "\n";
+        }
+        return buf;
+    }
 }

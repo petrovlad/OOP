@@ -16,6 +16,9 @@ public class Oval extends Figure {
         lineSize = linesize;
         fillColor = fillclr;
         lineColor = lineclr;
+
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+        lineColorValue = ConvertColors.colorToInt(lineColor);
     }
 
     public Oval(String script) {
@@ -33,6 +36,7 @@ public class Oval extends Figure {
             index = script.indexOf('"', script.indexOf("stroke"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
         }
 
         index = script.indexOf("stroke-width");
@@ -47,6 +51,7 @@ public class Oval extends Figure {
             index = script.indexOf('"', script.indexOf("fill"));
             buf = script.substring(index + 1, script.indexOf('"', index + 1));
             fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
         }
 
         int x, y;
@@ -70,7 +75,7 @@ public class Oval extends Figure {
         lineColor = Color.BLACK;
         fillColor = Color.WHITE;
 
-        int x, y;
+        double x, y;
         boolean p1 = false;
         boolean p2 = false;
         for (Attribute attribute : map.attributes) {
@@ -78,9 +83,15 @@ public class Oval extends Figure {
                 case ("stroke"):
                     try {
                         lineColor = Color.valueOf(attribute.value);
+                        lineColorValue = ConvertColors.colorToInt(lineColor.getRed(), lineColor.getGreen(), lineColor.getBlue());
                     }
                     catch (Exception e) {
-                        messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        try {
+                            lineColorValue = Integer.parseInt(attribute.value, 16);
+                        }
+                        catch (Exception e1) {
+                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        }
                     }
                     break;
                 case ("stroke-width"):
@@ -94,16 +105,22 @@ public class Oval extends Figure {
                 case ("fill"):
                     try {
                         fillColor = Color.valueOf(attribute.value);
+                        fillColorValue = ConvertColors.colorToInt(fillColor.getRed(), fillColor.getGreen(), fillColor.getBlue());
                     }
                     catch (Exception e) {
-                        messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        try {
+                            fillColorValue = Integer.parseInt(attribute.value, 16);
+                        }
+                        catch (Exception e1) {
+                            messages.add(new Message(Message.Type.ERROR, 2, attribute.value, map.line));
+                        }
                     }
                     break;
                 case ("point1"):
                     try {
                         p1 = true;
-                        x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                        y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                        x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                        y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                         startPoint = new Point(x, y);
                     }
                     catch (Exception e) {
@@ -114,8 +131,8 @@ public class Oval extends Figure {
                 case ("point2"):
                     try {
                         p2 = true;
-                        x = Integer.parseInt(attribute.value.substring(0, attribute.value.indexOf(' ')));
-                        y = Integer.parseInt(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
+                        x = Double.parseDouble(attribute.value.substring(0, attribute.value.indexOf(' ')));
+                        y = Double.parseDouble(attribute.value.substring(attribute.value.lastIndexOf(' ') + 1));
                         endPoint = new Point(x, y);
                     }
                     catch (Exception e) {
@@ -141,8 +158,8 @@ public class Oval extends Figure {
 
     @Override
     public void Draw(GraphicsContext gc) {
-        gc.setFill(fillColor);
-        gc.setStroke(lineColor);
+        gc.setFill(ConvertColors.intToColor(fillColorValue));
+        gc.setStroke(ConvertColors.intToColor(lineColorValue));
         gc.setLineWidth(lineSize);
 
         gc.strokeOval(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
@@ -151,6 +168,15 @@ public class Oval extends Figure {
 
     public static String getUsage() {
         return "<oval stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+    }
+
+    @Override
+    public String toString() {
+        return "<oval stroke=\"" + ConvertColors.intToColor(lineColorValue).toString() +
+                "\" stroke-width=\"" + lineSize +
+                "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
+                "\" point1=\"" + startPoint.x + " " + startPoint.y +
+                "\" point2=\"" + endPoint.x + " " + endPoint.y + "\">";
     }
 
 }
