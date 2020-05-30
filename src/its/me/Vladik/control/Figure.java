@@ -2,7 +2,6 @@ package its.me.Vladik.control;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-
 import java.io.Serializable;
 
 

@@ -1,6 +1,7 @@
 package its.me.Vladik.control;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -19,6 +21,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +42,9 @@ public class Controller {
 
     @FXML
     private MenuBar menuBar;
+
+    @FXML
+    private RadioButton rbtnLayout;
 
     private FigureList figureList = new FigureList();
 
@@ -82,6 +88,9 @@ public class Controller {
     @FXML
     // clear current figureList, get new figureList from the input field and redraw
     void drawObjs(ActionEvent event) {
+        ActionEvent event1 = new ActionEvent();
+        drawLayout(event1);
+
         figureList.deleteAll();
         // warnings || errors
         MessageList messages = new MessageList();
@@ -183,6 +192,8 @@ public class Controller {
                 figureList.figures = (ArrayList<Figure>) objectInputStream.readObject();
                 objectInputStream.close();
                 txtInput.setText(figureList.toString());
+
+                drawLayout(event);
                 figureList.draw(gc);
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -192,6 +203,42 @@ public class Controller {
                 alert.show();
             }
         }
+    }
+
+    @FXML
+    void openPluginFromFile(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(menuBar.getScene().getWindow());
+
+        if (file != null) {
+            try {
+                String path = file.getAbsolutePath();
+                path = path.substring(0, path.lastIndexOf('.'));
+
+                String folders[] = { path.substring(0, path.lastIndexOf('\\') + 1) };
+                String className = path.substring((path.lastIndexOf('\\') + 1));
+
+                ClassLoader classLoader = new DynamicClassLoader(folders);
+                classes.add(Class.forName(className, true, classLoader));
+
+//                String folderURL = path.substring(0, path.lastIndexOf('\\'));
+//                folderURL = "file:///" + folderURL + "/";
+//                URLClassLoader urlClassLoader = URLClassLoader.newInstance(new URL[] { new URL(folderURL)});
+//
+//                path = path.substring(path.lastIndexOf('\\') + 1);
+//                classes.add(urlClassLoader.loadClass(path));
+
+            }
+            catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(e.toString());
+                alert.show();
+            }
+
+
+//            return classes;
+        }
+
     }
 
     private static ArrayList<Class> getClassesFromPackage(String packageName) throws IOException, ClassNotFoundException {
@@ -273,5 +320,31 @@ public class Controller {
         }
 
         return map;
+    }
+
+    @FXML
+    void drawLayout(ActionEvent event) {
+
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
+        if (rbtnLayout.isSelected()) {
+            double x = 0;
+            double y = 0;
+            double height = canvas.getHeight();
+            double width = canvas.getWidth();
+            Color layoutColor = new Color(Color.GRAY.getRed(), Color.GRAY.getGreen(), Color.GRAY.getBlue(), 0.5);
+            gc.setStroke(layoutColor);
+
+            gc.setLineWidth(0.5);
+
+            while (x < width) {
+                gc.strokeLine(x, 0, x, height);
+                x += 50.0;
+            }
+            while (y < height) {
+                gc.strokeLine(0, y, width, y);
+                y += 50.0;
+            }
+        }
     }
 }

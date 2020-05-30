@@ -17,7 +17,7 @@ public class FigureList {
     }
 
     public void draw(GraphicsContext gc) {
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
         for (Figure fig: figures) {
             fig.Draw(gc);
         }
