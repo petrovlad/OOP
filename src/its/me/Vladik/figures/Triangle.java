@@ -11,6 +11,18 @@ public class Triangle extends Figure {
 
     public double height;
 
+    public Triangle() {
+        point1 = new Point(0, 0);
+        point2 = new Point(0, 0);
+        point3 = new Point(0, 0);
+        lineSize = 0;
+        lineColor = Color.BLACK;
+        lineColorValue = ConvertColors.colorToInt(lineColor);
+
+        fillColor = Color.WHITE;
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+    }
+
     public Triangle(double x1, double y1, double x2, double y2, double x3, double y3, int linesize, Color fillclr, Color lineclr) {
         point1.x = x1;
         point1.y = y1;
@@ -26,59 +38,6 @@ public class Triangle extends Figure {
         lineColorValue = ConvertColors.colorToInt(lineColor);
     }
     public Triangle(String script) {
-        script = script.toLowerCase();
-
-        int index;
-        String buf;
-
-        lineSize = 1;
-        lineColor = Color.BLACK;
-        fillColor = Color.WHITE;
-
-        index = script.indexOf("stroke");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineColor = Color.valueOf(buf);
-            lineColorValue = ConvertColors.colorToInt(lineColor);
-        }
-
-        index = script.indexOf("stroke-width");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke-width"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineSize = Integer.parseInt(buf);
-        }
-
-        index = script.indexOf("fill");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("fill"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            fillColor = Color.valueOf(buf);
-            fillColorValue = ConvertColors.colorToInt(fillColor);
-        }
-
-        int x, y;
-        index = script.indexOf('"', script.indexOf("point1"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        point1.x = x;
-        point1.y = y;
-
-        index = script.indexOf('"', script.indexOf("point2"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        point2.x = x;
-        point2.y = y;
-
-        index = script.indexOf('"', script.indexOf("point3"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        point3.x = x;
-        point3.y = y;
 
     }
 
@@ -208,5 +167,65 @@ public class Triangle extends Figure {
                 "\" point1=\"" + point1.x + " " + point1.y +
                 "\" point2=\"" + point2.x + " " + point2.y +
                 "\" point3=\"" + point3.x + " " + point3.y + "\">";
+    }
+
+    public String Serialize() {
+        return this.toString();
+    }
+
+    public void Deserialize(String script) {
+        script = script.toLowerCase();
+
+        int index;
+        String buf;
+
+        lineSize = 1;
+        lineColor = Color.BLACK;
+        fillColor = Color.WHITE;
+
+        index = script.indexOf("stroke");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
+        }
+
+        index = script.indexOf("stroke-width");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke-width"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineSize = Integer.parseInt(buf);
+        }
+
+        index = script.indexOf("fill");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("fill"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
+        }
+
+        double x, y;
+        index = script.indexOf('"', script.indexOf("point1"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        point1.x = x;
+        point1.y = y;
+
+        index = script.indexOf('"', script.indexOf("point2"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        point2.x = x;
+        point2.y = y;
+
+        index = script.indexOf('"', script.indexOf("point3"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        point3.x = x;
+        point3.y = y;
     }
 }

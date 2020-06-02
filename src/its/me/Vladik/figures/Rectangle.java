@@ -9,6 +9,17 @@ public class Rectangle extends Figure {
     public Point startPoint = new Point();
     public Point endPoint = new Point();
 
+    public Rectangle() {
+        startPoint = new Point(0, 0);
+        endPoint = new Point(0, 0);
+        lineSize = 0;
+        lineColor = Color.BLACK;
+        lineColorValue = ConvertColors.colorToInt(lineColor);
+
+        fillColor = Color.WHITE;
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+    }
+
     public Rectangle(double sx, double sy, double ex, double ey, int linesize, Color fillclr, Color lineclr) {
         startPoint.x = sx;
         startPoint.y = sy;
@@ -107,7 +118,36 @@ public class Rectangle extends Figure {
         }
     }
 
-    public Rectangle(String script) {
+
+    @Override
+    public void Draw(GraphicsContext gc) {
+        gc.setFill(ConvertColors.intToColor(fillColorValue));
+        gc.setStroke(ConvertColors.intToColor(lineColorValue));
+        gc.setLineWidth(lineSize);
+
+        gc.strokeRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
+        gc.fillRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
+
+    }
+
+    public static String getUsage() {
+        return "<rectangle stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
+    }
+
+    @Override
+    public String toString() {
+        return "<rectangle stroke=\"" + ConvertColors.intToColor(lineColorValue).toString() +
+                "\" stroke-width=\"" + lineSize +
+                "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
+                "\" point1=\"" + startPoint.x + " " + startPoint.y +
+                "\" point2=\"" + endPoint.x + " " + endPoint.y + "\">";
+    }
+
+    public String Serialize() {
+        return this.toString();
+    }
+
+    public void Deserialize(String script) {
         script = script.toLowerCase();
 
         int index;
@@ -140,43 +180,19 @@ public class Rectangle extends Figure {
             fillColorValue = ConvertColors.colorToInt(fillColor);
         }
 
-        int x, y;
+        double x, y;
         index = script.indexOf('"', script.indexOf("point1"));
         buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
         startPoint.x = x;
         startPoint.y = y;
 
         index = script.indexOf('"', script.indexOf("point2"));
         buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
         endPoint.x = x;
         endPoint.y = y;
-    }
-
-    @Override
-    public void Draw(GraphicsContext gc) {
-        gc.setFill(ConvertColors.intToColor(fillColorValue));
-        gc.setStroke(ConvertColors.intToColor(lineColorValue));
-        gc.setLineWidth(lineSize);
-
-        gc.strokeRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
-        gc.fillRect(startPoint.x, startPoint.y, Math.abs(endPoint.x - startPoint.x), Math.abs(endPoint.y - startPoint.y));
-
-    }
-
-    public static String getUsage() {
-        return "<rectangle stroke=\"COLOR\" stroke-width=\"N\" fill=\"COLOR\" point1=\"X Y\" point2=\"X Y\">";
-    }
-
-    @Override
-    public String toString() {
-        return "<rectangle stroke=\"" + ConvertColors.intToColor(lineColorValue).toString() +
-                "\" stroke-width=\"" + lineSize +
-                "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
-                "\" point1=\"" + startPoint.x + " " + startPoint.y +
-                "\" point2=\"" + endPoint.x + " " + endPoint.y + "\">";
     }
 }

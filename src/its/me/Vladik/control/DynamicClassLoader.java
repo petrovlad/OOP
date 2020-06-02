@@ -24,7 +24,7 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     // переопределенный метод для поиска класса
-    protected Class findClass(String name) throws ClassNotFoundException {
+    public Class findClass(String name) throws ClassNotFoundException {
         // на случай кеширования
         //
         Class result = (Class)classesHash.get(name);

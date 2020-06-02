@@ -16,6 +16,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.beans.XMLEncoder;
 import java.io.*;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -156,9 +157,17 @@ public class Controller {
 //            fileWriter.write(txtInput.getText());
 //            fileWriter.close();
                 FileOutputStream fileOutputStream = new FileOutputStream(file);
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-                objectOutputStream.writeObject(figureList.figures);
-                objectOutputStream.close();
+                figureList.Serialize(fileOutputStream);
+                
+
+//                Object object = figureList.figures.get(0);
+//                encoder.writeObject(object);
+//                encoder.close();
+//                fileOutputStream.close();
+
+//                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+//                objectOutputStream.writeObject(figureList.figures);
+//                objectOutputStream.close();
             } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
@@ -176,30 +185,32 @@ public class Controller {
 
         if (file != null) {
             try {
-//            FileReader fileReader = new FileReader(file);
-//            char[] buf = new char[256];
-//            int c;
-//            while ((c = fileReader.read(buf)) > -1) {
-//                if (c < 256)
-//                    buf = Arrays.copyOf(buf, c);
-//
-//                txtInput.appendText(String.valueOf(buf));
-//            }
+                MessageList messages = new MessageList();
 
-                FileInputStream fileInputStream = new FileInputStream(file);
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
                 figureList.deleteAll();
-                figureList.figures = (ArrayList<Figure>) objectInputStream.readObject();
-                objectInputStream.close();
+                FileInputStream fileInputStream = new FileInputStream(file);
+
+                figureList.Deserialize(fileInputStream, classes, messages);
+
                 txtInput.setText(figureList.toString());
 
                 drawLayout(event);
                 figureList.draw(gc);
-            } catch (Exception e) {
+
+                String report = messages.formReport();
+                if (!report.isEmpty()) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Why do you enter incorrect input?");
+                    alert.setHeaderText("Drawing failed");
+                    alert.setContentText(report);
+                    alert.show();
+                }
+            }
+            catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
                 alert.setHeaderText("Opening failed");
-                alert.setContentText("Error occurred while open figures from file!");
+                alert.setContentText(e.toString());
                 alert.show();
             }
         }
@@ -218,8 +229,17 @@ public class Controller {
                 String folders[] = { path.substring(0, path.lastIndexOf('\\') + 1) };
                 String className = path.substring((path.lastIndexOf('\\') + 1));
 
-                ClassLoader classLoader = new DynamicClassLoader(folders);
-                classes.add(Class.forName(className, true, classLoader));
+                DynamicClassLoader classLoader = new DynamicClassLoader(folders);
+//                classes.add(Class.forName(className, true, classLoader));
+                Class clss = classLoader.findClass(className);
+                classes.add(clss);
+
+                String buf = clss.getName();
+                names.add(buf.substring(buf.lastIndexOf('.') + 1));
+
+                // add usage
+                Method method = clss.getMethod("getUsage", null);
+                txtUsage.appendText(((String)method.invoke(null, null) + "\n"));
 
 //                String folderURL = path.substring(0, path.lastIndexOf('\\'));
 //                folderURL = "file:///" + folderURL + "/";

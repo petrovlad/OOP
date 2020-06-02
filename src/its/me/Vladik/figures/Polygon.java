@@ -8,52 +8,14 @@ public class Polygon extends Figure {
     public Point[] points;
     public int numOfPoints;
 
-    public Polygon(String script) {
-        script = script.toLowerCase();
-
-        int index;
-        String buf;
-
-        lineSize = 1;
+    public Polygon() {
+        points = new Point[] { new Point(0, 0) };
+        lineSize = 0;
         lineColor = Color.BLACK;
+        lineColorValue = ConvertColors.colorToInt(lineColor);
+
         fillColor = Color.WHITE;
-
-        index = script.indexOf("stroke");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineColor = Color.valueOf(buf);
-            lineColorValue = ConvertColors.colorToInt(lineColor);
-        }
-
-        index = script.indexOf("stroke-width");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke-width"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineSize = Integer.parseInt(buf);
-        }
-
-        index = script.indexOf("fill");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("fill"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            fillColor = Color.valueOf(buf);
-            fillColorValue = ConvertColors.colorToInt(fillColor);
-        }
-
-        index = script.indexOf('"', script.indexOf("num-of-points"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        numOfPoints = Integer.parseInt(buf);
-        // numofPoints should be >=3
-        int x, y;
-        points = new Point[numOfPoints];
-        for (int i = 0; i < numOfPoints; i++) {
-            index = script.indexOf('"', script.indexOf("point" + i + 1));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-            y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-            points[i] = new Point(x, y);
-        }
+        fillColorValue = ConvertColors.colorToInt(fillColor);
     }
 
     public Polygon(Map map, MessageList messages) {
@@ -189,4 +151,55 @@ public class Polygon extends Figure {
         return buf  + ">";
     }
 
+    public String Serialize() {
+        return this.toString();
+    }
+
+    public void Deserialize(String script) {
+        script = script.toLowerCase();
+
+        int index;
+        String buf;
+
+        lineSize = 1;
+        lineColor = Color.BLACK;
+        fillColor = Color.WHITE;
+
+        index = script.indexOf("stroke");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
+        }
+
+        index = script.indexOf("stroke-width");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke-width"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineSize = Integer.parseInt(buf);
+        }
+
+        index = script.indexOf("fill");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("fill"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
+        }
+
+        index = script.indexOf('"', script.indexOf("num-of-points"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        numOfPoints = Integer.parseInt(buf);
+        // numofPoints should be >=3
+        double x, y;
+        points = new Point[numOfPoints];
+        for (int i = 0; i < numOfPoints; i++) {
+            index = script.indexOf('"', script.indexOf("point" + i + 1));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+            y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+            points[i] = new Point(x, y);
+        }
+    }
 }

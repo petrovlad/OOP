@@ -4,9 +4,22 @@ import its.me.Vladik.control.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.io.File;
+
 public class Line extends Figure {
     public Point startPoint = new Point();
     public Point endPoint = new Point();
+
+    public Line() {
+        startPoint = new Point(0, 0);
+        endPoint = new Point(0, 0);
+        lineSize = 0;
+        lineColor = Color.BLACK;
+        lineColorValue = ConvertColors.colorToInt(lineColor);
+
+        fillColor = Color.WHITE;
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+    }
 
     public Line(double sx, double sy, double ex, double ey, int linesize, Color lineclr) {
         startPoint.x = sx;
@@ -17,46 +30,6 @@ public class Line extends Figure {
         lineColor = lineclr;
 
         lineColorValue = ConvertColors.colorToInt(lineColor);
-    }
-
-    public Line(String script) {
-        script = script.toLowerCase();
-
-        int index;
-        String buf;
-
-        lineSize = 1;
-        lineColor = Color.BLACK;
-
-        index = script.indexOf("stroke");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineColor = Color.valueOf(buf);
-            lineColorValue = ConvertColors.colorToInt(lineColor);
-        }
-
-        index = script.indexOf("stroke-width");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke-width"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineSize = Integer.parseInt(buf);
-        }
-
-        int x, y;
-        index = script.indexOf('"', script.indexOf("point1"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        startPoint.x = x;
-        startPoint.y = y;
-
-        index = script.indexOf('"', script.indexOf("point2"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        endPoint.x = x;
-        endPoint.y = y;
     }
 
     public Line(Map map, MessageList messages) {
@@ -149,5 +122,49 @@ public class Line extends Figure {
                 "\" stroke-width=\"" + lineSize +
                 "\" point1=\"" + startPoint.x + " " + startPoint.y +
                 "\" point2=\"" + endPoint.x + " " + endPoint.y + "\">";
+    }
+
+    public String Serialize() {
+        return this.toString();
+    }
+
+    public void Deserialize(String script) {
+        script = script.toLowerCase();
+
+        int index;
+        String buf;
+
+        lineSize = 1;
+        lineColor = Color.BLACK;
+
+        index = script.indexOf("stroke");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
+        }
+
+        index = script.indexOf("stroke-width");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke-width"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineSize = Integer.parseInt(buf);
+        }
+
+        double x, y;
+        index = script.indexOf('"', script.indexOf("point1"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        startPoint.x = x;
+        startPoint.y = y;
+
+        index = script.indexOf('"', script.indexOf("point2"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        endPoint.x = x;
+        endPoint.y = y;
     }
 }

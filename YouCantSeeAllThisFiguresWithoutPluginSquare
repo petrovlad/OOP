@@ -1,0 +1,4 @@
+<square stroke="0x000000ff" stroke-width="6" fill="0xff0000ff" point="100.0 100.0" side="51.0">
+<triangle stroke="0x000000ff" stroke-width="6" fill="0xa52a2aff" point1="75.0 100.0" point2="275.0 100.0" point3="175.0 25.0">
+<rectangle stroke="0x000000ff" stroke-width="6" fill="0xa52a2aff" point1="175.0 150.0" point2="225.0 250.0">
+<oval stroke="0x000000ff" stroke-width="6" fill="0xffd700ff" point1="215.0 195.0" point2="220.0 200.0">

@@ -2,6 +2,8 @@ package its.me.Vladik.control;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+
+import java.io.File;
 import java.io.Serializable;
 
 
@@ -19,7 +21,9 @@ public abstract class Figure implements Serializable {
     // большинство определений в скрипте одинаковы для остальных
     // определить общие и в каждом конструкторе дописать уникальные?
 
-    public void Draw(GraphicsContext gc) { }
+    public void Draw(GraphicsContext gc) { };
+    public String Serialize() { return ""; };
+    public void Deserialize(String script) { };
 
     @Override
     public String toString() { return "";}

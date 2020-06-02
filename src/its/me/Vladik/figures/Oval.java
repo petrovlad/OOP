@@ -8,6 +8,17 @@ public class Oval extends Figure {
     public Point startPoint = new Point();
     public Point endPoint = new Point();
 
+    public Oval() {
+        startPoint = new Point(0, 0);
+        endPoint = new Point(0, 0);
+        lineSize = 0;
+        lineColor = Color.BLACK;
+        lineColorValue = ConvertColors.colorToInt(lineColor);
+
+        fillColor = Color.WHITE;
+        fillColorValue = ConvertColors.colorToInt(fillColor);
+    }
+
     public Oval(double sx, double sy, double ex, double ey, int linesize, Color fillclr, Color lineclr) {
         startPoint.x = sx;
         startPoint.y = sy;
@@ -19,55 +30,6 @@ public class Oval extends Figure {
 
         fillColorValue = ConvertColors.colorToInt(fillColor);
         lineColorValue = ConvertColors.colorToInt(lineColor);
-    }
-
-    public Oval(String script) {
-        script = script.toLowerCase();
-
-        int index;
-        String buf;
-
-        lineSize = 1;
-        lineColor = Color.BLACK;
-        fillColor = Color.WHITE;
-
-        index = script.indexOf("stroke");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineColor = Color.valueOf(buf);
-            lineColorValue = ConvertColors.colorToInt(lineColor);
-        }
-
-        index = script.indexOf("stroke-width");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("stroke-width"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            lineSize = Integer.parseInt(buf);
-        }
-
-        index = script.indexOf("fill");
-        if (index != -1) {
-            index = script.indexOf('"', script.indexOf("fill"));
-            buf = script.substring(index + 1, script.indexOf('"', index + 1));
-            fillColor = Color.valueOf(buf);
-            fillColorValue = ConvertColors.colorToInt(fillColor);
-        }
-
-        int x, y;
-        index = script.indexOf('"', script.indexOf("point1"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        startPoint.x = x;
-        startPoint.y = y;
-
-        index = script.indexOf('"', script.indexOf("point2"));
-        buf = script.substring(index + 1, script.indexOf('"', index + 1));
-        x = Integer.parseInt(buf.substring(0, buf.indexOf(' ')));
-        y = Integer.parseInt(buf.substring(buf.lastIndexOf(' ') + 1));
-        endPoint.x = x;
-        endPoint.y = y;
     }
 
     public Oval(Map map, MessageList messages) {
@@ -177,6 +139,59 @@ public class Oval extends Figure {
                 "\" fill=\"" + ConvertColors.intToColor(fillColorValue).toString() +
                 "\" point1=\"" + startPoint.x + " " + startPoint.y +
                 "\" point2=\"" + endPoint.x + " " + endPoint.y + "\">";
+    }
+
+    public String Serialize() {
+        return this.toString();
+    }
+
+    public void Deserialize(String script) {
+        script = script.toLowerCase();
+
+        int index;
+        String buf;
+
+        lineSize = 1;
+        lineColor = Color.BLACK;
+        fillColor = Color.WHITE;
+
+        index = script.indexOf("stroke");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineColor = Color.valueOf(buf);
+            lineColorValue = ConvertColors.colorToInt(lineColor);
+        }
+
+        index = script.indexOf("stroke-width");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("stroke-width"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            lineSize = Integer.parseInt(buf);
+        }
+
+        index = script.indexOf("fill");
+        if (index != -1) {
+            index = script.indexOf('"', script.indexOf("fill"));
+            buf = script.substring(index + 1, script.indexOf('"', index + 1));
+            fillColor = Color.valueOf(buf);
+            fillColorValue = ConvertColors.colorToInt(fillColor);
+        }
+
+        double x, y;
+        index = script.indexOf('"', script.indexOf("point1"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        startPoint.x = x;
+        startPoint.y = y;
+
+        index = script.indexOf('"', script.indexOf("point2"));
+        buf = script.substring(index + 1, script.indexOf('"', index + 1));
+        x = Double.parseDouble(buf.substring(0, buf.indexOf(' ')));
+        y = Double.parseDouble(buf.substring(buf.lastIndexOf(' ') + 1));
+        endPoint.x = x;
+        endPoint.y = y;
     }
 
 }
